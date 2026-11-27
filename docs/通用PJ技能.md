@@ -6,7 +6,7 @@
 
 加入芜湖交流群，交流使用方法与反馈问题。
 
-https://t.me/your-group
+https://t.me/+-1t1T3kaztA5OTc9
 
 ## 安装
 
