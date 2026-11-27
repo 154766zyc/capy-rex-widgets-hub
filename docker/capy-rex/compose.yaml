@@ -1,0 +1,21 @@
+name: capy-rex
+services:
+  hub:
+    build: .
+    image: capy-rex:V1.4
+    init: true
+    restart: always
+    network_mode: host
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+    read_only: false
+    cap_drop:
+      - ALL
+    mem_limit: 768m
+    stop_grace_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+        max-file: "5"

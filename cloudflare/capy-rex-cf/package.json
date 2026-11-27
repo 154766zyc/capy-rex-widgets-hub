@@ -1,0 +1,29 @@
+{
+  "name": "capy-rex",
+  "version": "1.4.0",
+  "private": true,
+  "type": "module",
+  "description": "帮你管理模块链接和模块，生成合集链接。",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "test": "node --test *.test.mjs test/*.test.js",
+    "test:cf": "node tools/test-cf.mjs",
+    "verify:cf": "node tools/verify-cf-bundle.mjs && node --import ./test/cf/register.mjs tools/smoke-cf-bundle.mjs",
+    "check": "npm test && npm run test:cf && npm run verify:cf",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "build:single": "node tools/build-single.mjs",
+    "start": "node server.js",
+    "init:nas": "node nas/init.mjs",
+    "test:nas": "node --test nas/*.test.mjs",
+    "check:nas": "npm test && npm run test:nas"
+  },
+  "devDependencies": {
+    "wrangler": "4.168.0",
+    "esbuild": "^0.27.0"
+  },
+  "upstreamVersion": "3.6.0",
+  "author": "芜湖"
+}

@@ -1,0 +1,39 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.secret
+*.pem
+*.key
+
+# Runtime data and private backups
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.wal
+*.shm
+*.log
+backups/
+
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+.tmp/
+.cache/
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Wrangler local state
+.wrangler/
+
+# Local archives and generated captures
+*.local.zip
+screenshots-private/

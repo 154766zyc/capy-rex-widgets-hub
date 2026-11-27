@@ -1,0 +1,7 @@
+const $=id=>document.getElementById(id);
+const limit=512*1024;let worker=null,timer=null,last=0;
+function stop(){worker?.terminate();worker=null;clearTimeout(timer);$('check').disabled=false;}
+$('file').onchange=async()=>{stop();const f=$('file').files[0];if(!f)return;if(f.size>limit){$('message').textContent='文件超过 512 KiB，请缩小后重试';$('file').value='';return;}$('code').value=await f.text();$('message').textContent='文件已在本地读取，尚未上传或执行';};
+$('clear').onclick=()=>{stop();$('checkerForm').reset();$('result').textContent='';$('message').textContent='已清空';};
+$('checkerForm').onsubmit=e=>{e.preventDefault();stop();const source=$('code').value;if(new TextEncoder().encode(source).length>limit){$('message').textContent='源码超过 512 KiB';return;}if(!source.trim()){$('message').textContent='请选择文件或粘贴源码';return;}if(Date.now()-last<1000){$('message').textContent='请间隔一秒再试';return;}last=Date.now();$('check').disabled=true;$('message').textContent='正在静态解析…';$('result').textContent='';worker=new Worker('/checker/worker.js',{type:'module'});timer=setTimeout(()=>{stop();$('message').textContent='解析超过 3 秒，已终止；请缩小源码';},3000);worker.onmessage=({data})=>{stop();$('message').textContent=data.ok?'静态检查完成；仍需在 App 内验证':'发现需要修正的问题';$('result').textContent=JSON.stringify(data,null,2);};worker.onerror=()=>{stop();$('message').textContent='解析器无法加载或内存不足，请重试';};worker.postMessage({source,platform:$('platform').value});};
+window.addEventListener('pagehide',stop);

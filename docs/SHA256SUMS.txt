@@ -1,0 +1,4 @@
+f9913347c2c7779b326288d353ab690c4f22f08c2a03e0178e519c74a88addb0  docker/capy-rex-widgets-hub-V1.4-clean.zip
+f00b69266038c2fe9b13c6b6c7864e44ccbd638d07399834bd861b30df32f3a6  cloudflare/capy-rex-V1.4-CF-clean.zip
+bb0b0d85d48f4405916c6e199a4412ffb78bee35199644ec9f2c5b59e19fb083  skills/芜湖模块开发工作台-V2.zip
+22800dc5f901973efe3d1c0998be5da91b063ec2b64c349b117423ab8e36c189  skills/芜湖ai通用PJ-V1.zip

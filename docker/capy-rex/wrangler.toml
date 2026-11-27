@@ -1,0 +1,62 @@
+# Rex Widgets Hub 3.6.0 · Cloudflare 部署配置（通用版）
+#
+# 这一版的数据全部存在一个 Durable Object 自带的 SQLite 里，
+# 不再需要 KV、D1，所以这里没有任何要填的编号。
+# 只需要：
+#   1. 按需改 name（Worker 名称，决定 xxx.workers.dev 地址）
+#   2. 部署后设置密码：npx wrangler secret put ADMIN_PASSWORD
+#
+# 注意：建议用一个「新的」Worker 名称部署，再用旧站导出的备份恢复。
+# 直接覆盖旧的 3.5.0（KV + D1）Worker 不会自动搬数据，详见 CF-DEPLOY.md。
+
+name = "rex-widgets-hub"
+main = "cf/index.js"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 唯一的数据存储：SQLite 型 Durable Object（免费计划可用）
+[[durable_objects.bindings]]
+name = "HUB"
+class_name = "RexHub"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RexHub"]
+
+# 每 5 分钟唤醒一次：订阅六小时检查、自动分类、过期清理。
+# 「全部同步」等排队任务由 Durable Object 闹钟每秒续跑，不依赖这里。
+[triggers]
+crons = ["*/5 * * * *"]
+
+# PWA 图标随代码一起打包
+[[rules]]
+type = "Data"
+globs = ["**/*.png", "**/*.ico"]
+fallthrough = true
+
+[observability]
+enabled = true
+
+[version_metadata]
+binding = "CF_VERSION_METADATA"
+
+# 付费计划可放宽单次请求 CPU 时间（恢复大备份时有用）；免费计划请保持注释。
+# [limits]
+# cpu_ms = 300000
+
+# ── 可选：边缘缓存（3.6.0，默认关闭）──────────────────────────────
+# 打开后，Rex 拉合集（.rex）和下载模块由 Cloudflare 边缘缓存直接回，
+# 不进 Durable Object：不算 DO 请求、不读数据库行（仍算一次 Worker 请求）。
+# 代价：合集最多晚约 1 分钟、模块最多晚约 5 分钟更新（和 Rex 自己的缓存时间一样）。
+# 打开方法（三步，缺一不可）：
+#   1. 把上面的 compatibility_flags 改成 ["nodejs_compat", "enable_ctx_exports"]
+#   2. 去掉下面几行开头的 #
+#   3. 重新部署：npx wrangler@latest deploy
+# 管理页、登录等带 Cookie 的请求永远不进缓存。
+# [cache]
+# enabled = true
+# [exports.default]
+# type = "worker"
+# cache = { enabled = false }
+# [vars]
+# EDGE_CACHE = "1"

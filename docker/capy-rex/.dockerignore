@@ -1,0 +1,13 @@
+data/
+node_modules/
+.git/
+*.zip
+*.log
+*.pdf
+原始源码/
+
+.env
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+验证证据/

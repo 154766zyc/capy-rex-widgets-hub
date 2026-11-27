@@ -1,0 +1,113 @@
+{
+  "name": "wuhu-player-suite-v2",
+  "release": "2.0.0",
+  "verifiedDate": "2026-11-27",
+  "status": "portable export; workshop pending; not installed",
+  "sources": "references/sources-v2.md; references/sources.md (V1 history)",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3048,
+      "sha256": "b902e7a04e2bb86dcb55136370a1cbde37665fb629d410f8027807f164f7743c"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 2874,
+      "sha256": "c8c56130e2887ea8e9085ae6e9bf4e420a05bbcfe2c39cba5878b9e881816e98"
+    },
+    {
+      "path": "examples/activation-demo.md",
+      "bytes": 1616,
+      "sha256": "daea9b471a13f9cefa4617c326f8cab70e7cc11c690e0ccfcb931e821d645288"
+    },
+    {
+      "path": "references/README.md",
+      "bytes": 3048,
+      "sha256": "b902e7a04e2bb86dcb55136370a1cbde37665fb629d410f8027807f164f7743c"
+    },
+    {
+      "path": "references/activation.md",
+      "bytes": 1498,
+      "sha256": "d4e79601cba2b342131a782cdaed7bba7a816434c3752b9aa7cfc9f53288cd39"
+    },
+    {
+      "path": "references/analysis-repair.md",
+      "bytes": 1855,
+      "sha256": "5f1c0669bf820aa2b34d3902c7ec1ac6eead4b240ae385771d17d6fd4af6a281"
+    },
+    {
+      "path": "references/capabilities-v2.md",
+      "bytes": 2514,
+      "sha256": "f00643e0dbddb5da8ef5c9183aac64dfc26a4be0017d7afe2ebd64afb53ef91e"
+    },
+    {
+      "path": "references/contracts.md",
+      "bytes": 3858,
+      "sha256": "3085595ce9f95dceb9bb8683ba8d002a2a05f69b0bd06679fdcff2713661f9b2"
+    },
+    {
+      "path": "references/crypto.md",
+      "bytes": 1660,
+      "sha256": "4e778795b696693dfc05245b5a169e0b8c476eb96bba964e30e8deddaa56ee6f"
+    },
+    {
+      "path": "references/deployment.md",
+      "bytes": 3016,
+      "sha256": "250672594b58b26948c5e233a22e8f377e649ada7fc429c0d6f405e05b221abb"
+    },
+    {
+      "path": "references/links-params.md",
+      "bytes": 2173,
+      "sha256": "43b49aebcc5903518cbb5d7ecffa6c8c66e9413e94b3512640851ad8021c1aae"
+    },
+    {
+      "path": "references/local-cover.md",
+      "bytes": 3936,
+      "sha256": "f22c22834af316f21e3a5e1bd428eace7d6efaac4eda2324b5555c8fd1e7f2dc"
+    },
+    {
+      "path": "references/rex-extensions.md",
+      "bytes": 2758,
+      "sha256": "999d457a3291995e06e419f36b0fec79b82360bd7bae338db9f9bdcbde83e486"
+    },
+    {
+      "path": "references/rexenc-static.md",
+      "bytes": 1562,
+      "sha256": "69db6f93519180667c939bc61fdf0e6042b855e0eb1236532bf34bbe3da74b71"
+    },
+    {
+      "path": "references/sources-v2.md",
+      "bytes": 2186,
+      "sha256": "d4b42e088b3fae5ce19ec782435a0e31a22f07158b9c26fe0cb822837b9e30d8"
+    },
+    {
+      "path": "references/sources.md",
+      "bytes": 2633,
+      "sha256": "8a72ebb331675441370c5c24f9064e999ffe7dec05caeade8a5951debf1d51b4"
+    },
+    {
+      "path": "references/testing-release.md",
+      "bytes": 3569,
+      "sha256": "248cc527e09be30e82815ccec488d6c3df5845163a41741f413c587c1154a732"
+    },
+    {
+      "path": "scripts/capy-links.mjs",
+      "bytes": 3051,
+      "sha256": "13136b0a8a9b5634680546d89da40cb64b0240e43568b785d3df0ca3fffdbf2e"
+    },
+    {
+      "path": "scripts/rexenc-inspect.mjs",
+      "bytes": 4312,
+      "sha256": "6ce141182a1cfcb0d24d0633207b9460fcb6572e15c7a2647baded103889ce63"
+    }
+  ],
+  "verification": {
+    "syntax": "both .mjs pass",
+    "capyLinksTests": 18,
+    "rexencStaticTests": 18,
+    "frontmatter": "quick_validate pass",
+    "app": "not tested",
+    "decryption": "not implemented"
+  },
+  "excluded": "user sample, ciphertext, private paths, deployment data"
+}

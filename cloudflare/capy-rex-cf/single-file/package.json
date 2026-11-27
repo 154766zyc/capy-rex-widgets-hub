@@ -1,0 +1,9 @@
+{
+  "name": "rex-widgets-hub",
+  "version": "3.6.0",
+  "private": true,
+  "type": "module",
+  "description": "Rex Widgets Hub 3.6.0 · Cloudflare 单文件部署版",
+  "scripts": { "deploy": "wrangler deploy" },
+  "devDependencies": { "wrangler": "^4.0.0" }
+}
