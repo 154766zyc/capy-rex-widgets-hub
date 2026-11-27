@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/banner.jpg" alt="Capy/Rex 项目海报" width="100%">
+</p>
+
 # Capy/Rex 模块管理平台
 
 **把常用模块收进自己的网页，统一管理链接、整理合集，再分享给需要的人。**
