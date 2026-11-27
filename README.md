@@ -1,88 +1,90 @@
-# Capy/Rex Widgets Hub
+# Capy/Rex 模块管理平台
 
-一个围绕 Capy 与 Rex 模块管理、部署和开发协作整理的项目仓库，包含 Docker/NAS 部署版、Cloudflare Workers 部署版，以及两套可独立安装的 AI 技能包。
+**把常用模块收进自己的网页，统一管理链接、整理合集，再分享给需要的人。**
 
-> 公开发布前请先确认仓库可见性、项目授权和上游素材使用范围。本仓库没有附加未经确认的开源许可证。
+这个项目面向使用 Capy、Rex 模块的用户。你可以将它部署到 NAS、服务器或 Cloudflare，在浏览器里管理模块文件和链接，整理 Rex 合集，并提供公开访问地址。
 
-## 项目内容
+仓库同时附带两套 AI 技能，供需要编写、修复模块或处理编程任务的用户选用。
 
-| 目录 | 内容 | 快速入口 |
-|---|---|---|
-| [`docker/capy-rex/`](docker/capy-rex/) | Docker/NAS 服务端源码、Compose、环境变量示例、静态检查器和测试 | [部署说明](docs/Docker部署说明.md) |
-| [`cloudflare/capy-rex-cf/`](cloudflare/capy-rex-cf/) | Cloudflare Worker 源码、Durable Object SQLite、配置和测试 | [部署说明](docs/Cloudflare部署说明.md) |
-| [`skills/芜湖模块开发工作台-V2/`](skills/芜湖模块开发工作台-V2/) | Capy/Rex 模块开发、互转、分析和验收的 Agent Skill | [安装说明](docs/模块开发工作台V2.md) |
-| [`skills/芜湖ai通用PJ-V1/`](skills/芜湖ai通用PJ-V1/) | 通用编程、调试、静态分析、研究和技能工程 Agent Skill | [安装说明](docs/通用PJ技能.md) |
-| [`docs/`](docs/) | 中文总介绍、部署指南、技能说明及发布审计 | [项目总介绍](docs/项目总介绍.md) |
+## 可以用来做什么
 
-## 选择部署方式
+- **整理自己的模块库**，集中保存模块链接和文件，减少在聊天记录里反复查找。
+- **管理 Rex 合集链接**，将需要的内容整理到一起，方便访问和分享。
+- **提供公开模块地址**，把支持的模块文件和链接交给播放器使用。
+- **搭建模块分享页面**，Docker/NAS 版还提供公开页面、开发者账户及投稿审核流程。
+- **辅助检查和开发模块**，Docker/NAS 版包含浏览器静态检查器，附带技能提供 AI 辅助编写、修复和迁移流程。
 
-- 想把服务和数据放在自己的 NAS、家庭服务器或 VPS 上，使用 `docker/capy-rex/`。
-- 想将公开管理入口部署到 Cloudflare Workers，使用 `cloudflare/capy-rex-cf/`。
-- 两种部署版本的功能范围并不完全相同，请阅读各自说明后再选择。
+## 先选适合你的版本
 
-## Docker/NAS 快速开始
+| 你想做的事 | 推荐入口 |
+|---|---|
+| 在自己的 NAS、家庭服务器或 VPS 上搭建，自己管理数据 | Docker/NAS 版 |
+| 使用 Cloudflare 托管，省去维护常驻服务器 | Cloudflare 版 |
+| 让支持技能的 AI 助手协助编写、修复或迁移 Capy/Rex 模块 | 芜湖模块开发工作台 V2 |
+| 用 AI 协助编程调试、研究写作和自动化排障 | 芜湖 AI 通用 PJ V1 |
 
-进入 `docker/capy-rex/`：
+## Docker/NAS 版
 
-```bash
-cp .env.example .env
-mkdir -p data
-docker compose config --quiet
-docker compose up -d --build
-```
+适合拥有 NAS 或服务器，希望自己管理服务和数据的用户。
 
-首次启动后打开 `http://服务器地址:8080` 完成初始化，再检查 `http://服务器地址:8080/healthz`。使用域名时先按部署说明设置 `SETUP_ORIGIN`、`PUBLIC_URL`、HTTPS 和反向代理。
+提供模块与文件管理、Rex 合集链接、公开分享页面、开发者账户、投稿审核和浏览器静态检查器。数据保存在本地挂载目录中，升级前可以自行备份。
 
-## Cloudflare 快速开始
+**开始部署 → [Docker 中文部署说明](docs/Docker部署说明.md)**
 
-进入 `cloudflare/capy-rex-cf/single-file/`，先按需修改 `wrangler.toml` 中的 Worker 名称，再运行：
+源码位于 [`docker/capy-rex/`](docker/capy-rex/)。首次部署需要 Docker 和 Docker Compose。按指南配置后，默认通过 `http://服务器地址:8080` 打开网页并完成初始化。
 
-```bash
-npm install
-npx wrangler@4.168.0 login
-npx wrangler@4.168.0 deploy --dry-run
-npx wrangler@4.168.0 deploy
-npx wrangler@4.168.0 secret put ADMIN_PASSWORD
-```
+## Cloudflare 版
 
-Wrangler 会在浏览器中引导账户授权。管理员密码通过交互提示设置，不要写入仓库文件。实际发布前请阅读 Cloudflare 部署说明，尤其是 Worker 名称、Durable Object 数据和旧站迁移部分。
+适合希望通过 Cloudflare 提供模块管理和公开访问入口的用户。
 
-## 源码与技能包
+提供模块与文件管理、Rex 合集链接、订阅同步、定时任务和备份恢复。数据使用 Cloudflare 的 SQLite Durable Object 保存，部署配置中已经包含所需绑定。
 
-每个部署目录都保留可读源码、配置和相关测试。Cloudflare 单文件部署入口位于 `cloudflare/capy-rex-cf/single-file/`。完整 Worker 源码及打包工具位于 `cloudflare/capy-rex-cf/`。
+Cloudflare 版目前未接入开发者账户、投稿审核、公开 Capy 分类页和 NAS 在线检查器。使用前请结合功能需求及 Cloudflare 账户额度选择。
 
-技能包可以直接从对应目录安装，也可以使用仓库发布页面提供的 ZIP。安装方式依赖宿主产品对 Agent Skills 的支持情况，详见 `docs/` 下的技能说明。
+**开始部署 → [Cloudflare 中文部署说明](docs/Cloudflare部署说明.md)**
 
-## 功能边界与验证状态
+源码位于 [`cloudflare/capy-rex-cf/`](cloudflare/capy-rex-cf/)，单文件部署入口位于其中的 `single-file/` 目录。
 
-- 静态检查器解析模块内容，不执行提交的 JavaScript。静态检查不能替代播放器 App 的运行测试。
-- 本地 Rex/Capy 封面解密能力没有得到充分证实。相关工具入口使用外部服务时，服务方可能收到提交内容。
-- REXENC v2 可进行静态结构识别。本项目没有执行未知加密模块，也没有暴力尝试隐藏密钥。
-- 清洁包的自动化回归、配置解析、Worker bundle 和 ZIP 完整性检查结果见 [审计报告](docs/审计报告.md)。
-- 本次整理未执行 Docker 镜像实际构建、Cloudflare 账户实际部署或播放器 App 实机验收。
+## 附带的 AI 技能
 
-## GitHub Desktop 发布
+### 芜湖模块开发工作台 V2
 
-1. 将本目录作为本地仓库添加到 GitHub Desktop。若 Desktop 未识别为仓库，使用 **File → Add Local Repository** 或 **File → New Repository**，仓库路径选择本目录并保留现有文件。
-2. 检查变更列表和 `.gitignore`，确认没有 `.env`、运行数据库、备份、日志、私钥或个人数据。
-3. 在 GitHub Desktop 输入首个提交摘要，例如 `Initial clean source release`，点击 **Commit to main**。
-4. 点击 **Publish repository**，设置仓库名称、简介和 Public/Private 可见性，再确认发布。
-5. 发布后从 GitHub 页面克隆一次仓库，验证 README 链接和部署目录可用。
+给 AI 助手使用的模块开发流程，覆盖 Rex 与 Capy 模块分析、编写、修复、迁移、链接参数处理和验证。需要宿主支持 Agent Skills 或读取相应技能文件。
 
-仓库当前没有远程地址，也没有自动发布动作。选择 Public 会将提交内容公开给所有人，请在点击发布前自行核对仓库可见性及项目授权。
+[查看安装与使用说明](docs/模块开发工作台V2.md)
 
-## 目录索引
+### 芜湖 AI 通用 PJ V1
 
-```text
-capy-rex-widgets-hub-github/
-├── README.md
-├── .gitignore
-├── docker/
-│   └── capy-rex/                 Docker/NAS 源码与 Compose
-├── cloudflare/
-│   └── capy-rex-cf/              Worker 源码、配置、测试与单文件部署包
-├── skills/
-│   ├── 芜湖模块开发工作台-V2/    Capy/Rex 专项 Agent Skill
-│   └── 芜湖ai通用PJ-V1/          通用 AI 工作台 Agent Skill
-└── docs/                         中文说明、总介绍和审计报告
-```
+提供编程调试、软件静态分析、授权安全审计、研究写作和自动化排障等任务流程，可独立安装使用。
+
+[查看安装与使用说明](docs/通用PJ技能.md)
+
+## 下载和使用
+
+第一次使用，先阅读对应部署说明。需要完整源码时，可点击仓库上方绿色 **Code → Download ZIP**，或在 GitHub Desktop 中克隆本仓库。
+
+Docker/NAS 版当前提供源码构建方式，具体命令见 Docker 部署说明。
+
+## 常见问题
+
+### 需要同时部署 Docker 和 Cloudflare 吗？
+
+选择一个符合需求的版本即可，两者都可以独立部署。
+
+### AI 技能要一起安装吗？
+
+按需安装。模块管理平台的部署步骤见 Docker 或 Cloudflare 指南。
+
+### Capy 和 Rex 模块能直接互转吗？
+
+附带技能可以辅助分析和迁移明文模块。两种播放器的接口及能力存在差异，具体模块需要适配并在目标播放器中验证。
+
+### 支持模块和封面解密吗？
+
+当前 `/crypto` 页面提供外部工具链接。仓库中的 REXENC 检查工具用于识别封装结构。本地模块解密和播放器原生封面解密显示尚未完成验证。
+
+## 使用与验证说明
+
+浏览器静态检查和自动化测试可以帮助发现问题，实际播放效果仍需在对应播放器中确认。当前整理记录包含自动化回归、配置解析和打包检查，Docker 镜像实际构建、Cloudflare 实际部署及播放器 App 实机验收尚待目标环境验证。
+
+详细记录见 [发布审计报告](docs/审计报告.md)。
